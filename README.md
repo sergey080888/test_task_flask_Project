@@ -133,7 +133,7 @@ git clone https://github.com/sergey080888/test_task_flask_Project.git
 
 #### Перейдите в каталог проекта.
 ```
-cd test_task_flask_Project-master
+cd test_task_flask_Project
 ```
 #### Создайте файл .env :
 ```
