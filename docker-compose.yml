@@ -1,0 +1,65 @@
+version: '3.9'
+
+networks:
+  backend:
+    driver: bridge
+
+
+volumes:
+  dbdata6:
+
+services:
+
+  flask:
+    build: .
+    depends_on:
+    - mongodb
+    - redis
+    ports:
+      - "5000:5000"
+    command: flask run
+    volumes:
+      - .:/app
+    networks:
+      backend:
+    env_file:
+      - .env
+
+
+
+
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb-1
+    volumes:
+      - ./dbdata6/:/data/db/
+    ports:
+      - "27017:27017"
+    networks:
+      backend:
+    depends_on:
+      - redis
+
+
+
+  redis:
+    image:  redis:alpine
+    restart: always
+    networks:
+      backend:
+        aliases:
+          - db-redis
+
+
+  celery:
+      build: .
+      volumes:
+        - .:/app
+      command: celery -A mail worker --loglevel=info
+      depends_on:
+        - flask
+      networks:
+        backend:
+      env_file:
+        - .env
