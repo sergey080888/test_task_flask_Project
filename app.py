@@ -16,10 +16,6 @@ app.config["MONGO_URI"] = DB_URI
 mongo = PyMongo(app)
 
 
-
-
-
-
 @app.errorhandler(HttpError)
 def error_handler(error: HttpError):
     http_response = jsonify({'status': 'error', 'description': error.message})
