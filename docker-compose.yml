@@ -9,7 +9,6 @@ volumes:
   dbdata6:
 
 services:
-
   flask:
     build: .
     depends_on:
@@ -24,9 +23,6 @@ services:
       backend:
     env_file:
       - .env
-
-
-
 
   mongodb:
     image: mongo
